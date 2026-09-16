@@ -114,11 +114,14 @@ sudo python3 own-vpn.py --stop
 
 ---
 
-## 🎥 Proof of Concept & Verification
+## 🎥 Proof of Concept & Deployment Demonstration
 
-> **Note:** Deployment logs, sample `.ovpn` configurations (sanitized), and terminal recordings are available in [`docs/`](docs/) and [`poc/`](poc/).
+![VPNX Deployment Demonstration](docs/demo.gif)
 
-
+### 📊 Deployment Artifacts & Previews
+- **Sample Client Profile:** [`poc/sample_client.ovpn`](poc/sample_client.ovpn)
+- **High-Resolution Terminal Capture:** [`docs/preview.png`](docs/preview.png)
+- **High-Definition Demo Video:** [`docs/demo.mp4`](docs/demo.mp4)
 
 ---
 
