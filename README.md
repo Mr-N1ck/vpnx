@@ -118,10 +118,7 @@ sudo python3 own-vpn.py --stop
 
 > **Note:** Deployment logs, sample `.ovpn` configurations (sanitized), and terminal recordings are available in [`docs/`](docs/) and [`poc/`](poc/).
 
-<!-- User Demo Placement Zone -->
-```
-[ Drop your demo.gif or demo.mp4 recording here: docs/demo.gif ]
-```
+
 
 ---
 
