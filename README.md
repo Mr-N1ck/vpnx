@@ -1,23 +1,50 @@
 # 🛡️ VPNX — Automated Cloud OpenVPN Lab Network Deployer
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![Protocol](https://img.shields.io/badge/Protocol-OpenVPN%20TLS-F34F29?style=for-the-badge)](https://openvpn.net)
-[![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Cloud-E95420?style=for-the-badge&logo=linux&logoColor=white)](https://kernel.org)
-[![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.8%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Protocol-OpenVPN%20TLS-F34F29?style=for-the-badge" alt="OpenVPN">
+  <img src="https://img.shields.io/badge/Platform-Linux%20%7C%20Cloud-E95420?style=for-the-badge&logo=linux&logoColor=white" alt="Linux">
+  <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="MIT License">
+</p>
 
-**VPNX** is a zero-dependency automated server deployment and client configuration suite designed to build private, **TryHackMe / HackTheBox-style VPN networks** on any cloud instance (AWS, DigitalOcean, Linode, Hetzner, or bare metal) in under 60 seconds.
+<p align="center">
+  <b>Automated OpenVPN infrastructure for private cybersecurity labs, CTF environments, and authorized security research.</b>
+</p>
 
-Provisions a complete Easy-RSA Public Key Infrastructure (PKI), hardened OpenVPN daemon configurations, iptables NAT firewall routing, and self-contained `.ovpn` client profile files with embedded certificates.
+---
+
+## 📌 Overview
+
+**VPNX** is a zero-dependency automated server deployment and client configuration suite designed to build private, **TryHackMe / Hack The Box-style VPN networks** on cloud instances or bare-metal Linux servers.
+
+VPNX automates the deployment of:
+
+- OpenVPN server infrastructure
+- Easy-RSA Public Key Infrastructure (PKI)
+- Client certificates and keys
+- `.ovpn` client profiles
+- TUN networking
+- IP forwarding
+- iptables NAT and routing
+- Network diagnostics
+- Client lifecycle management
+
+The objective is to reduce the manual configuration required to create an isolated VPN-based cybersecurity laboratory.
 
 ---
 
 ## ⚡ Key Capabilities
 
-- ⚡ **One-Command Zero-Touch Provisioning:** Automatically detects public IPv4 via AWS IMDSv2/v1 and cloud metadata fallbacks, generates CA and Diffie-Hellman parameters, and initializes the server daemon.
-- 👥 **Dynamic Multi-Client Lifecycle:** Issues, inspects, and revokes cryptographic `.ovpn` client profiles containing embedded CA certificates, client keys, and TLS authentication tags.
-- 🔐 **Isolated Lab Subnets:** Partitions teammates or competing lab participants into isolated virtual network segments using dynamic iptables access control lists.
-- 🔍 **Pre-Flight Diagnostics:** Automatically verifies Linux IP forwarding (`net.ipv4.ip_forward`), kernel routing tables, firewall policies, and virtual TUN device availability (`/dev/net/tun`).
-- 🎨 **Dual Operation Interfaces:** Interactive terminal interface with live status spinners, alongside headless CLI flags for automated cloud-init provisioning.
+| Capability | Description |
+|---|---|
+| ⚡ **Automated Provisioning** | Automatically configures the OpenVPN server and required networking components. |
+| 🔐 **PKI Management** | Creates and manages the Easy-RSA certificate authority and client certificates. |
+| 👥 **Multi-Client Support** | Generates, lists, and manages multiple `.ovpn` client profiles. |
+| 🧱 **Network Isolation** | Supports firewall-based access control and isolated lab networking. |
+| 🔍 **Pre-Flight Diagnostics** | Checks IP forwarding, routing, firewall configuration, TUN availability, and related prerequisites. |
+| ☁️ **Cloud Ready** | Designed for Linux cloud instances and bare-metal lab servers. |
+| 🎨 **Interactive CLI** | Provides an interactive terminal interface for common operations. |
+| ⚙️ **Headless CLI** | Supports command-line operation for automated provisioning and administration. |
 
 ---
 
@@ -25,23 +52,24 @@ Provisions a complete Easy-RSA Public Key Infrastructure (PKI), hardened OpenVPN
 
 ```mermaid
 flowchart TD
+
     subgraph Clients["Remote VPN Clients"]
-        C1["Lab Operator (10.8.0.2)"]
-        C2["Red Team Assessor (10.8.0.3)"]
-        C3["Target Victim VM (10.8.0.4)"]
+        C1["Lab Operator<br/>10.8.0.2"]
+        C2["Security Assessor<br/>10.8.0.3"]
+        C3["Lab Target VM<br/>10.8.0.4"]
     end
 
-    subgraph Gateway["VPNX Hardened Server (Cloud Host)"]
-        TUN["tun0 Virtual Interface (10.8.0.1)"]
-        PKI["Easy-RSA 3 PKI & TLS Auth HMAC"]
-        IPTABLES["iptables NAT & Subnet Isolation Rules"]
+    subgraph Gateway["VPNX OpenVPN Gateway"]
+        TUN["tun0<br/>10.8.0.1"]
+        PKI["Easy-RSA 3 PKI<br/>TLS Authentication"]
+        FW["iptables<br/>NAT & Firewall Rules"]
     end
 
-    C1 <== TLS-Encrypted OpenVPN Tunnel (UDP 1194) ==> TUN
-    C2 <== TLS-Encrypted OpenVPN Tunnel (UDP 1194) ==> TUN
-    C3 <== TLS-Encrypted OpenVPN Tunnel (UDP 1194) ==> TUN
+    C1 <== "TLS VPN Tunnel<br/>UDP 1194" ==> TUN
+    C2 <== "TLS VPN Tunnel<br/>UDP 1194" ==> TUN
+    C3 <== "TLS VPN Tunnel<br/>UDP 1194" ==> TUN
 
-    TUN <--> IPTABLES
+    TUN <--> FW
     PKI --> TUN
 ```
 
